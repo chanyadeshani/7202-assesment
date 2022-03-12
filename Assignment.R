@@ -31,17 +31,17 @@ september_2015 <- read_csv('principal_offence_category_september_2015.csv', col_
 october_2015 <- read_csv('principal_offence_category_october_2015.csv', col_names = TRUE)
 december_2015 <- read_csv('principal_offence_category_december_2015.csv', col_names = TRUE)
 
-
+colnames(df1)
 # check data type of rows
 head(february_2014)
 
-#Add data frames to a list
-listOfDataframes <- list("Jan_2014" = january_2014, "Feb_2014" = february_2014,"Mar_2014" =march_2014,"Apr_2014"=april_2014,"May_2014"=may_2014,"Jun_2014" = june_2014,
-                        "Jul_2014"=july_2014,"Aug_2014"=august_2014,"Sep_2014"=september_2014,"Oct_2014"=october_2014,"Nov_2014"=november_2014,"Dec_2014"=december_2014,
-                        "Jan_2015"=january_2015,"Feb_2015"=february_2015,"Mar_2015"=march_2015,"Apr_2015"=april_2015,"May_2015"=may_2015,"Jun_2015"=june_2015,
-                        "Jul_2015"=july_2015,"Aug_2015"=august_2015,"Sep_2015"=september_2015,"Oct_2015"=october_2015,"Dec_2015"=december_2015)
+#Add data frames to a list name of the data frame is set so that it can change to a date later
+listOfDataframes <- list("1Jan2014" = january_2014, "1Feb2014" = february_2014,"1Mar2014" =march_2014,"1Apr2014"=april_2014,"1May2014"=may_2014,"1Jun2014" = june_2014,
+                        "1Jul2014"=july_2014,"1Aug2014"=august_2014,"1Sep2014"=september_2014,"1Oct2014"=october_2014,"1Nov2014"=november_2014,"1Dec2014"=december_2014,
+                        "1Jan2015"=january_2015,"1Feb2015"=february_2015,"1Mar2015"=march_2015,"1Apr2015"=april_2015,"1May2015"=may_2015,"1Jun2015"=june_2015,
+                        "1Jul2015"=july_2015,"1Aug2015"=august_2015,"1Sep2015"=september_2015,"1Oct2015"=october_2015,"1Dec2015"=december_2015)
 
-colnames <- c("Area", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OAPU", "P_OAPU","N_SOC", "P_SOC", "N_SOU", "P_SOU","N_BC",
+colnames <- c("Police", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OAPU", "P_OAPU","N_SOC", "P_SOC", "N_SOU", "P_SOU","N_BC",
     "P_BC","N_BU", "P_BU","N_RC","P_RC","N_RU","P_RU","N_THC","P_THC","N_THU","P_THU","N_FFC","P_FFC","N_FFU","P_FFU","N_CDC",
     "P_CDC","N_CDU","P_CDU","N_DOC","P_DOC","N_DOU","P_DOU","N_POOC","P_POOC","N_POOU","P_POOU","N_OTHERC","P_OTHERC","N_OTHERU",
     "P_OTHERU","N_MOC", "P_MOC","N_MOU","P_MOU","N_AFU","P_LMOU" )
@@ -102,11 +102,11 @@ view(listOfDataframes[[1]])
 
 print(listOfDataframes[[2]])
 summary(feb_2017)
-df_N_OAPC <- listOfDataframes[[1]][ , ("Area")]
-for (i in 1:length(listOfDataframes)){
+df_N_OAPC <- listOfDataframes[[1]][ , ("Police")]
+for (i in 1:seq_along(listOfDataframes)){
   df_N_OAPC <- cbind(df_N_OAPC, listOfDataframes[[i]][,6])
   }
-colnames(df_N_OAPC) <- c("Area", "Jan_2014", "Feb_2014","Mar_2014","Apr_2014","May_2014","Jun_2014","Jul_2014","Aug_2014"
+colnames(df_N_OAPC) <- c("Police", "Jan_2014", "Feb_2014","Mar_2014","Apr_2014","May_2014","Jun_2014","Jul_2014","Aug_2014"
                          ,"Sep_2014","Oct_2014","Nov_2014","Dec_2014","Jan_2015","Feb_2015","Mar_2015","Apr_2015","May_2015",
                          "Jun_2015", "Jul_2015","Aug_2015","Sep_2015","Oct_2015","Dec_2015" ) 
 view(df_N_OAPC)
@@ -144,4 +144,21 @@ ggplot(data=dft_N_OAPC, aes(x=Period, y=Avon_and_Somerset)) +
   geom_bar()
 ggplot(dft_N_OAPC, aes(x=Period, y= Avon_and_Somerset)) + geom_bar(stat='identity')
 
+data %>%
+  ggplot( aes(x=date, y=value)) +
+  geom_line(color="#69b3a2")
+listOfDataframes[[4]]%>%ggplot(aes(y = Area, x=P_OAPC , group = 1)) + 
+  geom_bar(color="#69b3a2",stat='identity')+ 
+  xlab("Percentage of Offences Against The Person Convictions") + ylab("Police Force") +
+  ggtitle("Percentage of offences against the person convictions by the police force")
 
+# adding date as the first of the month that data published to convert data in to time series and merge
+for (i in seq_along(listOfDataframes)){
+listOfDataframes[[i]] <- cbind(listOfDataframes[[i]], Date = rep(c(as.Date(names(listOfDataframes[(i)]), "%d%b%Y")),each=42))
+}
+timeseriesdf <- listOfDataframes[[1]]
+for (i in 2:length(listOfDataframes)){
+  timeseriesdf <- rbind(timeseriesdf,listOfDataframes[[i]])
+}
+nrow(listOfDataframes[[1]])
+listOfDataframes[[1]]
