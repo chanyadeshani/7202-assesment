@@ -8,43 +8,80 @@ library(plotly)
 df1 <- read_csv('principal_offence_category_march_2017.csv', col_names = TRUE)
 names(df1)
 
-january_2014 <- read_csv('principal_offence_category_january_2014.csv', col_names = TRUE)
-february_2014 <- read_csv('principal_offence_category_february_2014.csv', col_names = TRUE)
-march_2014 <- read_csv('principal_offence_category_march_2014.csv', col_names = TRUE)
-april_2014 <- read_csv('principal_offence_category_april_2014.csv', col_names = TRUE)
-may_2014 <- read_csv('principal_offence_category_may_2014.csv', col_names = TRUE)
-june_2014 <- read_csv('principal_offence_category_june_2014.csv', col_names = TRUE)
-july_2014 <- read_csv('principal_offence_category_july_2014.csv', col_names = TRUE)
-august_2014 <- read_csv('principal_offence_category_august_2014.csv', col_names = TRUE)
-september_2014 <- read_csv('principal_offence_category_september_2014.csv', col_names = TRUE)
-october_2014 <- read_csv('principal_offence_category_october_2014.csv', col_names = TRUE)
-november_2014 <- read_csv('principal_offence_category_november_2014.csv', col_names = TRUE)
-december_2014 <- read_csv('principal_offence_category_december_2014.csv', col_names = TRUE)
-january_2015 <- read_csv('principal_offence_category_january_2015.csv', col_names = TRUE)
-february_2015 <- read_csv('principal_offence_category_february_2015.csv', col_names = TRUE)
-march_2015 <- read_csv('principal_offence_category_march_2015.csv', col_names = TRUE)
-april_2015 <- read_csv('principal_offence_category_april_2015.csv', col_names = TRUE)
-may_2015 <- read_csv('principal_offence_category_may_2015.csv', col_names = TRUE)
-june_2015 <- read_csv('principal_offence_category_june_2015.csv', col_names = TRUE)
+
 july_2015 <- read_csv('principal_offence_category_july_2015.csv', col_names = TRUE)
 august_2015 <- read_csv('principal_offence_category_august_2015.csv', col_names = TRUE)
 september_2015 <- read_csv('principal_offence_category_september_2015.csv', col_names = TRUE)
 october_2015 <- read_csv('principal_offence_category_october_2015.csv', col_names = TRUE)
 december_2015 <- read_csv('principal_offence_category_december_2015.csv', col_names = TRUE)
+january_2016 <- read_csv('principal_offence_category_january_2016.csv', col_names = TRUE)
+april_2016 <- read_csv('principal_offence_category_april_2016.csv', col_names = TRUE)
+may_2016 <- read_csv('principal_offence_category_may_2016.csv', col_names = TRUE)
+june_2016 <- read_csv('principal_offence_category_june_2016.csv', col_names = TRUE)
+july_2016 <- read_csv('principal_offence_category_july_2016.csv', col_names = TRUE)
+august_2016 <- read_csv('principal_offence_category_august_2016.csv', col_names = TRUE)
+september_2016 <- read_csv('principal_offence_category_september_2016.csv', col_names = TRUE)
+october_2016 <- read_csv('principal_offence_category_october_2016.csv', col_names = TRUE)
+november_2016 <- read_csv('principal_offence_category_november_2016.csv', col_names = TRUE)
+december_2016 <- read_csv('principal_offence_category_december_2016.csv', col_names = TRUE)
+january_2017 <- read_csv('principal_offence_category_january_2017.csv', col_names = TRUE)
+february_2017 <- read_csv('principal_offence_category_february_2017.csv', col_names = TRUE)
+march_2017 <- read_csv('principal_offence_category_march_2017.csv', col_names = TRUE)
 
 colnames(df1)
 # check data type of rows
 
 #Add data frames to a list name of the data frame is set so that it can change to a date later
-listOfDataframes <- list("1Jan2014" = january_2014, "1Feb2014" = february_2014,"1Mar2014" =march_2014,"1Apr2014"=april_2014,"1May2014"=may_2014,"1Jun2014" = june_2014,
-                        "1Jul2014"=july_2014,"1Aug2014"=august_2014,"1Sep2014"=september_2014,"1Oct2014"=october_2014,"1Nov2014"=november_2014,"1Dec2014"=december_2014,
-                        "1Jan2015"=january_2015,"1Feb2015"=february_2015,"1Mar2015"=march_2015,"1Apr2015"=april_2015,"1May2015"=may_2015,"1Jun2015"=june_2015,
-                        "1Jul2015"=july_2015,"1Aug2015"=august_2015,"1Sep2015"=september_2015,"1Oct2015"=october_2015,"1Dec2015"=december_2015)
+listOfDataframes <- list("1Jul2015"=july_2015,"1Aug2015"=august_2015,"1Sep2015"=september_2015,"1Oct2015"=october_2015,"1Dec2015"=december_2015,
+                         "1Jan2016" = january_2016,"1Apr2016"=april_2016,"1May2016"=may_2016,"1Jun2016" = june_2016,"1Jul2016"=july_2016,
+                         "1Aug2016"=august_2016,"1Sep2016"=september_2016, "1Oct2016"=october_2016, "1Nov2016"=november_2016, "1Dec2016"=december_2016,
+                         "1Jan2017"=january_2017,"1Feb2017"=february_2017,"1Mar2017"=march_2017)
 
-colnames <- c("court ", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OAPU", "P_OAPU","N_SOC", "P_SOC", "N_SOU", "P_SOU","N_BC",
-    "P_BC","N_BU", "P_BU","N_RC","P_RC","N_RU","P_RU","N_THC","P_THC","N_THU","P_THU","N_FFC","P_FFC","N_FFU","P_FFU","N_CDC",
-    "P_CDC","N_CDU","P_CDU","N_DOC","P_DOC","N_DOU","P_DOU","N_POOC","P_POOC","N_POOU","P_POOU","N_OTHERC","P_OTHERC","N_OTHERU",
-    "P_OTHERU","N_MOC", "P_MOC","N_MOU","P_MOU","N_AFU","P_LMOU" )
+# adding date as the first of the month that data published to convert data in to time series and merge
+for (i in seq_along(listOfDataframes)){
+  listOfDataframes[[i]] <- cbind(listOfDataframes[[i]], Date = rep(c(as.Date(names(listOfDataframes[(i)]), "%d%b%Y")),each=43))
+}
+listOfDataframes[[9]]$Date
+
+timeseriesdf <- listOfDataframes[[1]]
+for (i in 2:length(listOfDataframes)){
+  timeseriesdf <- rbind(timeseriesdf,listOfDataframes[[i]])
+}
+
+# Defining abbriviated column names to rename the existing names
+colnames <- c("Court", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OAPU", "P_OAPU","N_SOC", "P_SOC", "N_SOU", "P_SOU","N_BC",
+              "P_BC","N_BU", "P_BU","N_RC","P_RC","N_RU","P_RU","N_THC","P_THC","N_THU","P_THU","N_FFC","P_FFC","N_FFU","P_FFU","N_CDC",
+              "P_CDC","N_CDU","P_CDU","N_DOC","P_DOC","N_DOU","P_DOU","N_POOC","P_POOC","N_POOU","P_POOU","N_OTHERC","P_OTHERC","N_OTHERU",
+              "P_OTHERU","N_MOC", "P_MOC","N_MOU","P_MOU","N_AFU","P_LMOU", "Date" )
+
+# Change column names of timeseriesdf
+colnames(timeseriesdf) <- colnames
+
+#copy first column data to a vector
+court_col <- timeseriesdf$Court
+date_col <- timeseriesdf$Date
+view(timeseriesdf)
+
+# Remove percentage sign in the data set and convert to numeric
+suppressWarnings(timeseriesdf <- data.frame(sapply(timeseriesdf, function(x) as.numeric(gsub("%", "", x)))))
+
+# Correct the first column data that was set to NA when converting data to NA
+timeseriesdf <- cbind(timeseriesdf, data.frame(court = court_col))
+timeseriesdf <- cbind(timeseriesdf, data.frame(date = date_col))
+
+#remove columns with all NA and "P_LMOU" (as this column has values only 100 and NA)
+timeseriesdf <- timeseriesdf[ , !names(timeseriesdf) %in% c("Court","Date","P_LMOU")]
+
+view(timeseriesdf)
+
+timeseriesdf$court  <- ifelse(timeseriesdf$court  %in% c('Metropolitan and City'), "Metropolitan & City",timeseriesdf$court)
+timeseriesdf$court  <- ifelse(timeseriesdf$court %in% c('Avon and Somerset'), "Avon & Somerset",timeseriesdf$court)
+
+
+
+
+
+
 for (i in seq_along(listOfDataframes)){
   # Change column names
   colnames(listOfDataframes[[i]]) <- colnames
@@ -69,12 +106,7 @@ for (i in 2:length(listOfDataframes)){
 
 #view(national)
 # Change the first column name without changing others
-colnames(national) <- c("Period", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OAPU", "P_OAPU","N_SOC", "P_SOC", "N_SOU", "P_SOU","N_BC",
-                          "P_BC","N_BU", "P_BU","N_RC","P_RC","N_RU","P_RU","N_THC","P_THC","N_THU","P_THU","N_FFC","P_FFC","N_FFU","P_FFU","N_CDC",
-                          "P_CDC","N_CDU","P_CDU","N_DOC","P_DOC","N_DOU","P_DOU","N_POOC","P_POOC","N_POOU","P_POOU","N_OTHERC","P_OTHERC","N_OTHERU",
-                          "P_OTHERU","N_MOC", "P_MOC","N_MOU","P_MOU","N_AFU","P_LMOU" ) 
-
-
+names(national)[names(national) == 'court'] <- 'period'
 
 # Drop the row with National data
 for (i in seq_along(listOfDataframes)){
@@ -148,16 +180,10 @@ listOfDataframes[[4]]%>%ggplot(aes(y = Area, x=P_OAPC , group = 1)) +
   xlab("Percentage of Offences Against The Person Convictions") + ylab("Court ") +
   ggtitle("Percentage of offences against the person convictions by the Court for January 2014")
 
-# adding date as the first of the month that data published to convert data in to time series and merge
-for (i in seq_along(listOfDataframes)){
-listOfDataframes[[i]] <- cbind(listOfDataframes[[i]], Date = rep(c(as.Date(names(listOfDataframes[(i)]), "%d%b%Y")),each=42))
-}
-timeseriesdf <- listOfDataframes[[1]]
-for (i in 2:length(listOfDataframes)){
-  timeseriesdf <- rbind(timeseriesdf,listOfDataframes[[i]])
-}
-timeseriesdf$court  <- ifelse(timeseriesdf$court  %in% c('Metropolitan and City'), "Metropolitan & City",timeseriesdf$court)
-timeseriesdf$court  <- ifelse(timeseriesdf$court %in% c('Avon and Somerset'), "Avon & Somerset",timeseriesdf$court)
+
+
+
+
 
 
 # x scale copied from https://ggplot2-book.org/scale-position.html#date-labels
@@ -216,4 +242,6 @@ ggplotly(p3)
 
 dfbfs <-filter(timeseriesdf, Police == "Bedfordshire")
 summary(dfbfs)
+
+
 
