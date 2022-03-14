@@ -8,7 +8,6 @@ library(plotly)
 df1 <- read_csv('principal_offence_category_march_2017.csv', col_names = TRUE)
 names(df1)
 
-
 july_2015 <- read_csv('principal_offence_category_july_2015.csv', col_names = TRUE)
 august_2015 <- read_csv('principal_offence_category_august_2015.csv', col_names = TRUE)
 september_2015 <- read_csv('principal_offence_category_september_2015.csv', col_names = TRUE)
@@ -60,7 +59,6 @@ colnames(timeseriesdf) <- colnames
 #copy first column data to a vector
 court_col <- timeseriesdf$Court
 date_col <- timeseriesdf$Date
-view(timeseriesdf)
 
 # Remove percentage sign in the data set and convert to numeric
 suppressWarnings(timeseriesdf <- data.frame(sapply(timeseriesdf, function(x) as.numeric(gsub("%", "", x)))))
@@ -76,44 +74,19 @@ view(timeseriesdf)
 
 timeseriesdf$court  <- ifelse(timeseriesdf$court  %in% c('Metropolitan and City'), "Metropolitan & City",timeseriesdf$court)
 timeseriesdf$court  <- ifelse(timeseriesdf$court %in% c('Avon and Somerset'), "Avon & Somerset",timeseriesdf$court)
-
-
-
-
-
-
-for (i in seq_along(listOfDataframes)){
-  # Change column names
-  colnames(listOfDataframes[[i]]) <- colnames
-  
-  # Remove percentage sign in the data set and convert to numeric
-  suppressWarnings(listOfDataframes[[i]] <- data.frame(sapply(listOfDataframes[[i]], function(x) as.numeric(gsub("%", "", x)))))
-  
-  # Correct the first column data that was set to NA when converting data to NA
-  for (j in 1:nrow(listOfDataframes[[i]])){
-    listOfDataframes[[i]][j,1]<-df1[j,1]
-  }
-}
+timeseriesdf$court  <- ifelse(timeseriesdf$court %in% c('Devon and Cornwall'), "Devon & Cornwall",timeseriesdf$court)
 
 #copy national data to a new data frame
-national <-  data.frame(c(listOfDataframes[[i]][1,]))
-national[national == "National"] <- names(listOfDataframes)[1]
+nationaldf <-filter(timeseriesdf, court == "National")
 
-for (i in 2:length(listOfDataframes)){
-  national <- rbind(national, listOfDataframes[[i]][1,])
-  national[national == "National"] <- names(listOfDataframes)[i]
-}
+view(nationaldf)
+#Drop the court column as it has value National for all the observations
+nationaldf <- nationaldf[ , !names(nationaldf) %in% c("court")]
 
-#view(national)
-# Change the first column name without changing others
-names(national)[names(national) == 'court'] <- 'period'
-
-# Drop the row with National data
-for (i in seq_along(listOfDataframes)){
+# Drop the rows with National data
   
-  listOfDataframes[[i]] <- listOfDataframes[[i]][!(listOfDataframes[[i]]$court  %in% c("National")), ]
-}
-
+timeseries_df <- timeseriesdf[!(timeseriesdf$court  %in% c("National")), ]
+view(timeseries_df)
 # Find total number of offences 
 #df_Total <- 
 
