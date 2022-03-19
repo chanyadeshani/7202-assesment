@@ -3,6 +3,8 @@ library(tidyverse)
 library(lubridate)
 library(data.table)
 library(plotly)
+library(reshape2)
+library(ggpubr)
 
 # Read data from csv to data frame
 df1 <- read_csv('principal_offence_category_march_2017.csv', col_names = TRUE)
@@ -47,7 +49,7 @@ for (i in 2:length(listOfDataframes)){
   timeseriesdf <- rbind(timeseriesdf,listOfDataframes[[i]])
 }
 
-# Defining abbriviated column names to rename the existing names
+# Defining abbreviated column names to rename the existing names
 colnames <- c("Court", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OAPU", "P_OAPU","N_SOC", "P_SOC", "N_SOU", "P_SOU","N_BC",
               "P_BC","N_BU", "P_BU","N_RC","P_RC","N_RU","P_RU","N_THC","P_THC","N_THU","P_THU","N_FFC","P_FFC","N_FFU","P_FFU","N_CDC",
               "P_CDC","N_CDU","P_CDU","N_DOC","P_DOC","N_DOU","P_DOU","N_POOC","P_POOC","N_POOU","P_POOU","N_OTHERC","P_OTHERC","N_OTHERU",
@@ -55,7 +57,8 @@ colnames <- c("Court", "N_HC", "P_HC", "N_HU", "P_HU", "N_OAPC", "P_OAPC", "N_OA
 
 # Change column names of timeseriesdf
 colnames(timeseriesdf) <- colnames
-
+colnames(july_2016) <- colnames
+colnames(august_2016) <- colnames
 #copy first column data to a vector
 court_col <- timeseriesdf$Court
 date_col <- timeseriesdf$Date
@@ -75,6 +78,7 @@ view(timeseriesdf)
 timeseriesdf$court  <- ifelse(timeseriesdf$court  %in% c('Metropolitan and City'), "Metropolitan & City",timeseriesdf$court)
 timeseriesdf$court  <- ifelse(timeseriesdf$court %in% c('Avon and Somerset'), "Avon & Somerset",timeseriesdf$court)
 timeseriesdf$court  <- ifelse(timeseriesdf$court %in% c('Devon and Cornwall'), "Devon & Cornwall",timeseriesdf$court)
+write.csv(timeseriesdf,"timeseriesdf.csv", row.names = TRUE)
 
 #copy national data to a new data frame
 nationaldf <-filter(timeseriesdf, court == "National")
@@ -85,14 +89,88 @@ nationaldf <- nationaldf[ , !names(nationaldf) %in% c("court")]
 
 # Drop the rows with National data
   
-timeseries_df <- timeseriesdf[!(timeseriesdf$court  %in% c("National")), ]
+timeseries_df <- timeseriesdf[!(timeseriesdf$court %in% c("National")), ]
 view(timeseries_df)
-# Find total number of offences 
-#df_Total <- 
 
-#bar graph for N_OAPC from April 2015 ~ March 2017 for National values
-national$Period <- factor(national$Period, levels = national$Period)
-ggplot(national,aes(x=Period,y=N_THC))+geom_bar(stat="identity") + ggtitle("Number of National Theft And Handling Convictions")
+#bar graph for National values
+p1 <- ggplot(nationaldf,aes(x=date,y=N_HC))+geom_bar(stat="identity") + ggtitle("National number of homicide convictions from July 2015 to March 2017") +
+  xlab("Month") + ylab("Number of homicide convictions")
+ggsave(p1, filename = "National numberofhomicideconvictions.png")
+
+p2 <-ggplot(nationaldf,aes(x=date,y=N_HU))+geom_bar(stat="identity") + ggtitle("National number of homicide unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of homicide unsuccessful")
+ggsave(p2, filename = "National number of homicide unsuccessful.png")
+
+p3 <- ggplot(nationaldf,aes(x=date,y=N_OAPC))+geom_bar(stat="identity") + ggtitle("National number of offences against the person convictions from July 2015 to March 2017") +
+  xlab("Month") + ylab("Number of offences against the person convictions")
+ggsave(p3, filename = "National offenceagainstthepersonconvictions.png")
+
+p4 <- ggplot(nationaldf,aes(x=date,y=N_OAPU))+geom_bar(stat="identity") + ggtitle("National number of offences against the person unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("number of offences against the person unsuccessful")
+ggsave(p4, filename = "Nationanumberoffencesagainstthepersonunsuccessful.png")
+
+#dfm <- melt(nationaldf[,c('N_OAPC','N_MOC','date')],id.vars = 1)
+#ggplot(dfm,aes(x = N_OAPC, y = N_MOC)) + 
+  #geom_bar(aes(fill = date),stat = "identity",position = "dodge")
+
+res <- cor.test(july_2016[13], july_2016[13], method = "pearson")
+res
+
+g1507 <- filter(timeseries_df, date == "2015-07-01" & court == "Gloucestershire")
+g1607 <- filter(timeseries_df, date == "2016-07-01" & court == "Gloucestershire")
+
+colnames(timeseries_df)
+timeseries_df$court
+df_grp_court = timeseries_df %>% group_by(court)  %>%
+  summarise(total_N_HC = sum(N_HC),
+            total_N_OAPC = sum(N_OAPC),
+            total_N_SOC = sum(N_SOC),
+            total_N_SOU = sum(N_SOU),
+            total_N_THC = sum(N_THC),
+            total_N_BC = sum(N_BC),
+            total_N_RC = sum(N_RC),
+            total_N_FFC = sum(N_FFC),
+            total_N_CDC = sum(N_CDC),
+            total_N_DOC = sum(N_DOC),
+            total_N_POOC = sum(N_POOC),
+            total_N_MOC = sum(N_MOC),
+            total_N_OTHERC = sum(N_OTHERC),
+            .groups = 'drop')
+view(df_grp_court)
+
+df_total_cases = timeseries_df %>% group_by(court)  %>%
+  summarise(total_N_HC = sum(N_HC)+sum(N_HU),
+            total_N_OAPC = sum(N_OAPC)+sum(N_OAPU),
+            total_N_SOC = sum(N_SOC)+sum(N_SOU),
+            total_N_BC = sum(N_BC)+sum(N_BU),
+            total_N_RC = sum(N_RC)+sum(N_RU),
+            total_N_THC = sum(N_THC)+sum(N_THU),
+            total_N_FFC = sum(N_FFC)+sum(N_FFU),
+            total_N_CDC = sum(N_CDC)+sum(N_CDU),
+            total_N_DOC = sum(N_DOC)+sum(N_DOU),
+            total_N_POOC = sum(N_POOC)+sum(N_POOU),
+            total_N_MOC = sum(N_MOC)+sum(N_MOU),
+            total_N_OTHERC = sum(N_OTHERC)+sum(N_OTHERU),
+            .groups = 'drop')
+df <- melt(df_total_cases , id.vars = 'court', variable.name = 'series')
+ggplot(df, aes(court,value, group = 1)) + geom_line(aes(colour = series))
+
+# or plot on different plots
+ggplot(df, aes(court,log(value), group = 1)) + geom_line() + facet_grid(series ~ .)
+ggplot(df, aes(x=court, y=value))+
+  geom_bar(stat='identity', fill="blue")+
+  facet_wrap(series ~ .,  ncol=1, scale="free_y")+
+  ggtitle("Total cases vs court") + theme(axis.text.x=element_text(angle=30,vjust =1, hjust=1))
+view(df_total_cases)
+
+# Plot the bar chart 
+barplot(df_total_cases$total_N_MOC,names.arg=df_total_cases$court,xlab="Month",ylab="case count",col="blue",
+        main="N_MO chart",border="purple")
+barplot(df_total_cases$total_N_THC,names.arg=df_total_cases$court,xlab="Month",ylab="case count",col="blue",
+        main="N_TH chart",border="purple")
+
+View(df_grp_region)
+#--------------------------------------------
 
 ggplot(listOfDataframes[[4]], aes(N_THC ))+geom_boxplot()+ggtitle("Number of Offences Against The Person Convictions in January 2017")
 
@@ -148,15 +226,14 @@ ggplot(data=dft_N_OAPC, aes(x=Period, y=Avon_and_Somerset)) +
   geom_bar()
 ggplot(dft_N_OAPC, aes(x=Period, y= Avon_and_Somerset)) + geom_bar(stat='identity')
 
+
+
+
+#---------------------------------------------
 listOfDataframes[[4]]%>%ggplot(aes(y = Area, x=P_OAPC , group = 1)) + 
   geom_bar(color="#69b3a2",stat='identity')+ 
   xlab("Percentage of Offences Against The Person Convictions") + ylab("Court ") +
   ggtitle("Percentage of offences against the person convictions by the Court for January 2014")
-
-
-
-
-
 
 
 # x scale copied from https://ggplot2-book.org/scale-position.html#date-labels
