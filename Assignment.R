@@ -29,6 +29,7 @@ january_2017 <- read_csv('principal_offence_category_january_2017.csv', col_name
 february_2017 <- read_csv('principal_offence_category_february_2017.csv', col_names = TRUE)
 march_2017 <- read_csv('principal_offence_category_march_2017.csv', col_names = TRUE)
 
+head(march_2017)
 colnames(df1)
 # check data type of rows
 
@@ -92,22 +93,121 @@ nationaldf <- nationaldf[ , !names(nationaldf) %in% c("court")]
 timeseries_df <- timeseriesdf[!(timeseriesdf$court %in% c("National")), ]
 view(timeseries_df)
 
-#bar graph for National values
+# Bar graph for National values
+# Homicide convictions
 p1 <- ggplot(nationaldf,aes(x=date,y=N_HC))+geom_bar(stat="identity") + ggtitle("National number of homicide convictions from July 2015 to March 2017") +
   xlab("Month") + ylab("Number of homicide convictions")
-ggsave(p1, filename = "National numberofhomicideconvictions.png")
+ggsave(p1, filename = "Na_no_hc.png")
 
 p2 <-ggplot(nationaldf,aes(x=date,y=N_HU))+geom_bar(stat="identity") + ggtitle("National number of homicide unsuccessful from July 2015 to March 2017")+ 
   xlab("Month") + ylab("Number of homicide unsuccessful")
-ggsave(p2, filename = "National number of homicide unsuccessful.png")
+ggsave(p2, filename = "Na_no_hu.png")
 
+# Offences against the person convictions
 p3 <- ggplot(nationaldf,aes(x=date,y=N_OAPC))+geom_bar(stat="identity") + ggtitle("National number of offences against the person convictions from July 2015 to March 2017") +
   xlab("Month") + ylab("Number of offences against the person convictions")
-ggsave(p3, filename = "National offenceagainstthepersonconvictions.png")
+ggsave(p3, filename = "Na_no_oapc.png")
 
 p4 <- ggplot(nationaldf,aes(x=date,y=N_OAPU))+geom_bar(stat="identity") + ggtitle("National number of offences against the person unsuccessful from July 2015 to March 2017")+ 
-  xlab("Month") + ylab("number of offences against the person unsuccessful")
-ggsave(p4, filename = "Nationanumberoffencesagainstthepersonunsuccessful.png")
+  xlab("Month") + ylab("Number of offences against the person unsuccessful")
+ggsave(p4, filename = "Na_no_oapu.png")
+
+# Sexual offences
+p5 <- ggplot(nationaldf,aes(x=date,y=N_SOC))+geom_bar(stat="identity") + ggtitle("National number of sexual offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of sexual offences convictions")
+ggsave(p5, filename = "Na_of_soc.png")
+
+p6 <- ggplot(nationaldf,aes(x=date,y=N_SOU))+geom_bar(stat="identity") + ggtitle("National number of sexual offences unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of sexual offences unsuccessful")
+ggsave(p6, filename = "Na_of_sou.png")
+
+# Burglary
+p7 <- ggplot(nationaldf,aes(x=date,y=N_BC))+geom_bar(stat="identity") + ggtitle("National number of burglary convictions unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of burglary convictions")
+ggsave(p7, filename = "Na_of_bc.png")
+
+p8 <- ggplot(nationaldf,aes(x=date,y=N_BU))+geom_bar(stat="identity") + ggtitle("National number of burglary unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of burglary unsuccessful")
+ggsave(p8, filename = "Na_of_bu.png")
+
+# Robbery
+p9 <- ggplot(nationaldf,aes(x=date,y=N_RC))+geom_bar(stat="identity") + ggtitle("National number of robbery convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of robbery convictions")
+ggsave(p9, filename = "Na_of_rc.png")
+
+p10 <- ggplot(nationaldf,aes(x=date,y=N_RU))+geom_bar(stat="identity") + ggtitle("National number of robbery unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of robbery unsuccessful")
+ggsave(p10, filename = "Na_no_ru.png")
+
+# Theft And Handling
+p11 <- ggplot(nationaldf,aes(x=date,y=N_THC))+geom_bar(stat="identity") + ggtitle("National number of theft and handling convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of theft and handling convictions")
+ggsave(p11, filename = "Na_no_tahc.png")
+
+p12 <- ggplot(nationaldf,aes(x=date,y=N_THU))+geom_bar(stat="identity") + ggtitle("National number of theft and handling unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of robbery unsuccessful")
+ggsave(p12, filename = "Na_no_tahu.png")
+
+# Fraud And Forgery
+p13 <- ggplot(nationaldf,aes(x=date,y=N_FFC))+geom_bar(stat="identity") + ggtitle("National number of fraud and forgery convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of fraud and forgery convictions")
+ggsave(p13, filename = "Na_of_fafc.png")
+
+p14 <- ggplot(nationaldf,aes(x=date,y=N_FFU))+geom_bar(stat="identity") + ggtitle("National number of fraud and forgery unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of fraud and forgery unsuccessful")
+ggsave(p14, filename = "Na_no_fafu.png")
+
+# Criminal Damage
+p15 <- ggplot(nationaldf,aes(x=date,y=N_CDC))+geom_bar(stat="identity") + ggtitle("National number of criminal damage convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of criminal damage convictions")
+ggsave(p15, filename = "Na_of_cdc.png")
+
+p16 <- ggplot(nationaldf,aes(x=date,y=N_CDU))+geom_bar(stat="identity") + ggtitle("National number of criminal damage unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of criminal damage unsuccessful")
+ggsave(p16, filename = "Na_no_cdu.png")
+
+# Drugs Offences
+p17 <- ggplot(nationaldf,aes(x=date,y=N_DOC))+geom_bar(stat="identity") + ggtitle("National number of drugs offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of drugs offences convictions")
+ggsave(p17, filename = "Na_no_doc.png")
+
+p18 <- ggplot(nationaldf,aes(x=date,y=N_DOU))+geom_bar(stat="identity") + ggtitle("National number of drugs offences unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of drugs offences unsuccessful")
+ggsave(p18, filename = "Na_no_dou.png")
+
+# Public Order Offences
+p19 <- ggplot(nationaldf,aes(x=date,y=N_POOC))+geom_bar(stat="identity") + ggtitle("National number of public order offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of public order offences convictions")
+ggsave(p19, filename = "Na_no_pooc.png")
+
+p20 <- ggplot(nationaldf,aes(x=date,y=N_POOU))+geom_bar(stat="identity") + ggtitle("National number of public order offencess unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of public order offences unsuccessful")
+ggsave(p20, filename = "Na_no_poou.png")
+
+# Other
+p21 <- ggplot(nationaldf,aes(x=date,y=N_OTHERC))+geom_bar(stat="identity") + ggtitle("National number of other convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of other convictions")
+ggsave(p21, filename = "Na_of_otherc.png")
+
+p22 <- ggplot(nationaldf,aes(x=date,y=N_OTHERU))+geom_bar(stat="identity") + ggtitle("National number of other unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of other unsuccessful")
+ggsave(p22, filename = "Na_of_otheru.png")
+
+# Motoring Offences
+p23 <- ggplot(nationaldf,aes(x=date,y=N_MOC))+geom_bar(stat="identity") + ggtitle("National number of motoring offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of motoring offences convictions")
+ggsave(p23, filename = "Na_of_moc.png")
+
+p24 <- ggplot(nationaldf,aes(x=date,y=N_MOU))+geom_bar(stat="identity") + ggtitle("National number of motoring offences unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of motoring offences unsuccessful")
+ggsave(p24, filename = "Na_of_mou.png")
+
+# Admin Finalised Unsuccessful
+p25 <- ggplot(nationaldf,aes(x=date,y=N_AFU))+geom_bar(stat="identity") + ggtitle("National number of admin finalised unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Number of admin finalised unsuccessful")
+ggsave(p25, filename = "Na_of_afu.png")
+
+
 
 #dfm <- melt(nationaldf[,c('N_OAPC','N_MOC','date')],id.vars = 1)
 #ggplot(dfm,aes(x = N_OAPC, y = N_MOC)) + 
@@ -121,7 +221,7 @@ g1607 <- filter(timeseries_df, date == "2016-07-01" & court == "Gloucestershire"
 
 colnames(timeseries_df)
 timeseries_df$court
-df_grp_court = timeseries_df %>% group_by(court)  %>%
+df_grp_court <- timeseries_df %>% group_by(court)  %>%
   summarise(total_N_HC = sum(N_HC),
             total_N_OAPC = sum(N_OAPC),
             total_N_SOC = sum(N_SOC),
@@ -138,7 +238,7 @@ df_grp_court = timeseries_df %>% group_by(court)  %>%
             .groups = 'drop')
 view(df_grp_court)
 
-df_total_cases = timeseries_df %>% group_by(court)  %>%
+df_total_cases <- timeseries_df %>% group_by(court)  %>%
   summarise(total_N_HC = sum(N_HC)+sum(N_HU),
             total_N_OAPC = sum(N_OAPC)+sum(N_OAPU),
             total_N_SOC = sum(N_SOC)+sum(N_SOU),
@@ -170,70 +270,36 @@ barplot(df_total_cases$total_N_THC,names.arg=df_total_cases$court,xlab="Month",y
         main="N_TH chart",border="purple")
 
 View(df_grp_region)
-#--------------------------------------------
 
-ggplot(listOfDataframes[[4]], aes(N_THC ))+geom_boxplot()+ggtitle("Number of Offences Against The Person Convictions in January 2017")
+df_bfs <-filter(timeseriesdf, court == "Bedfordshire")
+summary(df_bfs)
+ggplot(df_bfs, aes(date,N_MOC, group = 1)) + geom_point()
+x <- as.POSIXct(df_bfs$date, format="%Y-%m-%d")
+x
+y <- as.numeric(df_bfs$date)
+as.numeric(x)
+ggplot(df_bfs, aes(x=date, y=N_MOC))
+ggscatter(df_bfs, x = "date", y = "N_MOC", 
+            add = "reg.line", conf.int = TRUE, 
+            cor.coef = TRUE, cor.method = "pearson",
+            xlab = "Month", ylab = "Number of Motoring offence convictions")
+# check if the distribution is normally distributed
+ggqqplot(df_bfs$N_MOC, distribution = "norm", ylab = "Number of Motoring offence convictions")
 
-view(listOfDataframes[1])
-names(listOfDataframes[1])
+#check if the distribution is uniformally distributed
 
-names(listOfDataframes[[1]])
-view(listOfDataframes[[1]])
+#corelation
+res <- cor.test(df_bfs$N_MOC, y, method = "pearson")
+res
+# Heat map
+df_bfs_numeric <- subset(df_bfs, , -c(court, date, P_HC, N_HU,P_HU,P_OAPC,N_OAPU,P_OAPU,P_SOC,N_SOU,P_SOU,P_BC,N_BU,P_BU,P_RC,N_RU,P_RU,P_THC,N_THU,P_THU,P_FFC,N_FFU,P_FFU,
+                                      P_CDC,N_CDU,P_CDU,P_DOC,N_DOU,P_DOU,P_POOC,N_POOU,P_POOU,P_MOU,N_AFU,P_MOC,P_OTHERC,N_OTHERU,P_OTHERU))
+cov(df_bfs_numeric)
 
-#ggplot(feb_2017,aes(x = N_MOU)) + geom_density(fill = "blue")
-
-print(listOfDataframes[[2]])
-summary(feb_2017)
-df_N_OAPC <- listOfDataframes[[1]][ , ("court ")]
-for (i in seq_along(listOfDataframes)){
-  df_N_OAPC <- cbind(df_N_OAPC, listOfDataframes[[i]][,6])
-  }
-colnames(df_N_OAPC) <- c("court ", "Jan_2014", "Feb_2014","Mar_2014","Apr_2014","May_2014","Jun_2014","Jul_2014","Aug_2014"
-                         ,"Sep_2014","Oct_2014","Nov_2014","Dec_2014","Jan_2015","Feb_2015","Mar_2015","Apr_2015","May_2015",
-                         "Jun_2015", "Jul_2015","Aug_2015","Sep_2015","Oct_2015","Dec_2015" ) 
-view(df_N_OAPC)
-
-#transpose data frame
-dft_N_OAPC = t(df_N_OAPC)
-#redefine row and column names
-dft_N_OAPC = dft_N_OAPC[-c(1), ]
-colnames(dft_N_OAPC) = df_N_OAPC[,1]
-
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "Avon and Somerset"] <- "Avon_and_Somerset"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "Devon and Cornwall"] <- "Devon_and_Cornwall"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "Metropolitan and City"] <- "Metropolitan_and_City"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "North Yorkshire"] <- "North_Yorkshire"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "North Wales"] <- "North_Wales"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "South Wales"] <- "South_Wales"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "South Yorkshire"] <- "South_Yorkshire"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "West Midlands"] <- "West_Midlands"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "West Mercia"] <- "West_Mercia"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "Thames Valley"] <- "Thames_Valley"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "West Yorkshire"] <- "West_Yorkshire"
-colnames(dft_N_OAPC)[colnames(dft_N_OAPC) == "Dyfed Powys"] <- "Dyfed_Powys"
-
-
-rownames(dft_N_OAPC)
-dft_N_OAPC=as.data.frame(dft_N_OAPC)
-dft_N_OAPC <- dft_N_OAPC %>% rownames_to_column(var="Period")
-#rownames(dft_N_OAPC) = c("Jan_2014", "Feb_2014", "Mar_2014", "Apr_2014", "May_2014", "Jun_2014", "Jul_2014", "Aug_2014",
-#                         "Sep_2014", "Oct_2014", "Nov_2014", "Dec_2014", "Jan_2015", "Feb_2015", "Mar_2015", "Apr_2015",
-#                        "May_2015", "Jun_2015", "Jul_2015", "Aug_2015", "Sep_2015", "Oct_2015", "Dec_2015" ) 
-view(dft_N_OAPC)
-names(dft_N_OAPC)
-
-ggplot(data=dft_N_OAPC, aes(x=Period, y=Avon_and_Somerset)) +
-  geom_bar()
-ggplot(dft_N_OAPC, aes(x=Period, y= Avon_and_Somerset)) + geom_bar(stat='identity')
-
-
-
-
-#---------------------------------------------
-listOfDataframes[[4]]%>%ggplot(aes(y = Area, x=P_OAPC , group = 1)) + 
+listOfDataframes[[1]] %>% ggplot(aes(y = ...1, x=listOfDataframes[[1]][22] , group = 1)) + 
   geom_bar(color="#69b3a2",stat='identity')+ 
-  xlab("Percentage of Offences Against The Person Convictions") + ylab("Court ") +
-  ggtitle("Percentage of offences against the person convictions by the Court for January 2014")
+  xlab("Number of Theft And Handling Convictions") + ylab("Number of court cases ") +
+  ggtitle("Number of Theft And Handling Convictions by the Court for July 2015")
 
 
 # x scale copied from https://ggplot2-book.org/scale-position.html#date-labels
@@ -290,8 +356,6 @@ p3 <- ggplot(stats_pc, aes(Principal_crime, sd_values, group = 1)) +
 
 ggplotly(p3)
 
-dfbfs <-filter(timeseriesdf, Police == "Bedfordshire")
-summary(dfbfs)
 
 
 
