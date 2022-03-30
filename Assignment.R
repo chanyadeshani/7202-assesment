@@ -207,6 +207,120 @@ p25 <- ggplot(nationaldf,aes(x=date,y=N_AFU))+geom_bar(stat="identity") + ggtitl
   xlab("Month") + ylab("Number of admin finalised unsuccessful")
 ggsave(p25, filename = "Na_of_afu.png")
 
+# Percentages of offences
+
+# Homicide convictions
+p1_p <- ggplot(nationaldf,aes(x=date,y=P_HC))+geom_bar(stat="identity") + ggtitle("National percentage of homicide convictions from July 2015 to March 2017") +
+  xlab("Month") + ylab("Percentage of homicide convictions")
+ggsave(p1_p, filename = "Na_p_hc.png")
+
+p2_p <-ggplot(nationaldf,aes(x=date,y=P_HU))+geom_bar(stat="identity") + ggtitle("National percentage of homicide unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of homicide unsuccessful")
+ggsave(p2_p, filename = "Na_p_hu.png")
+
+# Offences against the person convictions
+p3_p <- ggplot(nationaldf,aes(x=date,y=P_OAPC))+geom_bar(stat="identity") + ggtitle("National percentage of offences against the person convictions from July 2015 to March 2017") +
+  xlab("Month") + ylab("Percentage of offences against the person convictions")
+ggsave(p3_p, filename = "Na_p_oapc.png")
+
+p4_p <- ggplot(nationaldf,aes(x=date,y=P_OAPU))+geom_bar(stat="identity") + ggtitle("National percentage of offences against the person unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of offences against the person unsuccessful")
+ggsave(p4_p, filename = "Na_p_oapu.png")
+
+# Sexual offences
+p5_p <- ggplot(nationaldf,aes(x=date,y=P_SOC))+geom_bar(stat="identity") + ggtitle("National percentage of sexual offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of sexual offences convictions")
+ggsave(p5_p, filename = "Na_p_soc.png")
+
+p6_p <- ggplot(nationaldf,aes(x=date,y=P_SOU))+geom_bar(stat="identity") + ggtitle("National percentage of sexual offences unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of sexual offences unsuccessful")
+ggsave(p6_p, filename = "Na_p_sou.png")
+
+# Burglary
+p7_p <- ggplot(nationaldf,aes(x=date,y=P_BC))+geom_bar(stat="identity") + ggtitle("National percentage of burglary convictions unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of burglary convictions")
+ggsave(p7_p, filename = "Na_p_bc.png")
+
+p8_p <- ggplot(nationaldf,aes(x=date,y=P_BU))+geom_bar(stat="identity") + ggtitle("National percentage of burglary unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of burglary unsuccessful")
+ggsave(p8_p, filename = "Na_p_bu.png")
+
+# Robbery
+p9_p <- ggplot(nationaldf,aes(x=date,y=P_RC))+geom_bar(stat="identity") + ggtitle("National percentage of robbery convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of robbery convictions")
+ggsave(p9_p, filename = "Na_p_rc.png")
+
+p10_p <- ggplot(nationaldf,aes(x=date,y=P_RU))+geom_bar(stat="identity") + ggtitle("National percentage of robbery unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of robbery unsuccessful")
+ggsave(p10_p, filename = "Na_p_ru.png")
+
+# Theft And Handling
+p11_p <- ggplot(nationaldf,aes(x=date,y=P_THC))+geom_bar(stat="identity") + ggtitle("National percentage of theft and handling convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of theft and handling convictions")
+ggsave(p11, filename = "Na_p_tahc.png")
+
+p12_p <- ggplot(nationaldf,aes(x=date,y=P_THU))+geom_bar(stat="identity") + ggtitle("National percentage of theft and handling unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of robbery unsuccessful")
+ggsave(p12_p, filename = "Na_p_tahu.png")
+
+# Fraud And Forgery
+p13_p <- ggplot(nationaldf,aes(x=date,y=P_FFC))+geom_bar(stat="identity") + ggtitle("National percentage of fraud and forgery convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of fraud and forgery convictions")
+ggsave(p13_p, filename = "Na_p_fafc.png")
+
+p14_p <- ggplot(nationaldf,aes(x=date,y=P_FFU))+geom_bar(stat="identity") + ggtitle("National percentage of fraud and forgery unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of fraud and forgery unsuccessful")
+ggsave(p14_p, filename = "Na_p_fafu.png")
+
+# Criminal Damage
+p15_p <- ggplot(nationaldf,aes(x=date,y=P_CDC))+geom_bar(stat="identity") + ggtitle("National percentage of criminal damage convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of criminal damage convictions")
+ggsave(p15_p, filename = "Na_p_cdc.png")
+
+p16_p <- ggplot(nationaldf,aes(x=date,y=P_CDU))+geom_bar(stat="identity") + ggtitle("National percentage of criminal damage unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of criminal damage unsuccessful")
+ggsave(p16_p, filename = "Na_p_cdu.png")
+
+# Drugs Offences
+p17_p <- ggplot(nationaldf,aes(x=date,y=P_DOC))+geom_bar(stat="identity") + ggtitle("National percentage of drugs offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of drugs offences convictions")
+ggsave(p17_p, filename = "Na_p_doc.png")
+
+p18_p <- ggplot(nationaldf,aes(x=date,y=P_DOU))+geom_bar(stat="identity") + ggtitle("National percentage of drugs offences unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of drugs offences unsuccessful")
+ggsave(p18_p, filename = "Na_p_dou.png")
+
+# Public Order Offences
+p19_p <- ggplot(nationaldf,aes(x=date,y=P_POOC))+geom_bar(stat="identity") + ggtitle("National percentage of public order offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of public order offences convictions")
+ggsave(p19_p, filename = "Na_p_pooc.png")
+
+p20_p <- ggplot(nationaldf,aes(x=date,y=P_POOU))+geom_bar(stat="identity") + ggtitle("National percentage of public order offencess unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of public order offences unsuccessful")
+ggsave(p20_p, filename = "Na_p_poou.png")
+
+# Other
+p21_p <- ggplot(nationaldf,aes(x=date,y=P_OTHERC))+geom_bar(stat="identity") + ggtitle("National percentage of other convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of other convictions")
+ggsave(p21_p, filename = "Na_p_otherc.png")
+
+p22_p <- ggplot(nationaldf,aes(x=date,y=P_OTHERU))+geom_bar(stat="identity") + ggtitle("National percentage of other unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of other unsuccessful")
+ggsave(p22_p, filename = "Na_p_otheru.png")
+
+# Motoring Offences
+p23_p <- ggplot(nationaldf,aes(x=date,y=P_MOC))+geom_bar(stat="identity") + ggtitle("National percentage of motoring offences convictions from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of motoring offences convictions")
+ggsave(p23_p, filename = "Na_p_moc.png")
+
+p24_p <- ggplot(nationaldf,aes(x=date,y=P_MOU))+geom_bar(stat="identity") + ggtitle("National percentage of motoring offences unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of motoring offences unsuccessful")
+ggsave(p24, filename = "Na_p_mou.png")
+
+# Admin Finalised Unsuccessful
+p25_p <- ggplot(nationaldf,aes(x=date,y=P_AFU))+geom_bar(stat="identity") + ggtitle("National percentage of admin finalised unsuccessful from July 2015 to March 2017")+ 
+  xlab("Month") + ylab("Percentage of admin finalised unsuccessful")
+ggsave(p25, filename = "Na_p_afu.png")
 
 
 #dfm <- melt(nationaldf[,c('N_OAPC','N_MOC','date')],id.vars = 1)
