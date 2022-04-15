@@ -1,8 +1,45 @@
 library(imputeTS)
 library(zoo)
+library(Hmisc) 
+library(corrplot)
 
 # Select subset of national values with 7 columns
 stealdf = nationaldf[, c('N_BC', 'N_BU', 'N_RC','N_RU','N_THC','N_THU','date')]
+
+hist(stealdf$"N_BU")
+par(mfrow=c(3,2))
+# Check for outliers
+ggplot(nationaldf, aes(N_THC ))+geom_boxplot()+
+  ggtitle("Number of national theft and handling convictions")+
+  xlab("Number of theft and handling convictions")
+
+ggplot(nationaldf, aes(N_THU ))+geom_boxplot()+
+  ggtitle("Number of national theft and handling unsuccessfull")+
+  xlab("Number of theft and handling unsuccessfull")
+
+ggplot(nationaldf, aes(N_RC ))+geom_boxplot()+
+  ggtitle("Number of national robbery convictions")+
+  xlab("Number of robbery convictions")
+
+ggplot(nationaldf, aes(N_RU ))+geom_boxplot()+
+  ggtitle("Number of robbery unsuccessfull")+
+  xlab("Number of robbery unsuccessfull")
+
+ggplot(nationaldf, aes(N_BC ))+geom_boxplot()+
+  ggtitle("Number of national burglary convictions")+
+  xlab("Number of burglary convictions")
+
+ggplot(nationaldf, aes(N_BU ))+geom_boxplot()+
+  ggtitle("Number of national burglary unsuccessfull")+
+  xlab("Number of burglary unsuccessfull")
+# Calculate coorelation
+cor(nationaldf$N_THC,as.numeric(nationaldf$date), method = c("spearman"))
+cor(nationaldf$N_THU,as.numeric(nationaldf$date), method = c("spearman"))
+cor(nationaldf$N_RC,as.numeric(nationaldf$date), method = c("spearman"))
+cor(nationaldf$N_RU ,as.numeric(nationaldf$date), method = c("spearman"))
+cor(nationaldf$N_BC ,as.numeric(nationaldf$date), method = c("spearman"))
+cor(nationaldf$N_BU,as.numeric(nationaldf$date), method = c("spearman"))
+
 
 # Add column for month
 #stealdf$no_months <- "no_months" = sapply(stealdf[,7], function(x) interval(as.Date('1Jul2015', "%d%b%Y") , x) %/% months(1))

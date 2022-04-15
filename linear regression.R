@@ -1,4 +1,8 @@
 
+library(dplyr)
+library(broom)
+library(ggpubr)
+
 view(stealdf)
 
 plot(na.interpolation(tsAirgap, option = "linear") - AirPassengers, ylim = c(-mean(AirPassengers), mean(AirPassengers)), ylab = "Difference", main = "Linear")
@@ -14,3 +18,5 @@ colnames <- c("N_SC", "N_SU", "Month" )
 # Change column names of full_df
 colnames(stealdf) <- colnames
 view(stealdf)
+simple_reg <- lm(N_SC ~ no_months, data = stealdf)
+summary(simple_reg)
