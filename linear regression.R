@@ -1,22 +1,46 @@
-
 library(dplyr)
 library(broom)
 library(ggpubr)
 
-view(stealdf)
-
-plot(na.interpolation(tsAirgap, option = "linear") - AirPassengers, ylim = c(-mean(AirPassengers), mean(AirPassengers)), ylab = "Difference", main = "Linear")
-m3 <- mean((na.interpolation(tsAirgap, option = "linear") - AirPassengers)^2)
-
-# Remove percentage sign in the data set and convert to numeric
-stealdf$X <- data.frame(sapply(stealdf[,7], function(x) interval(as.Date('1Jul2015', "%d%b%Y") , x) %/% months(1)))
-
-# Drop columns used to calculate N_SC and N_SU columns
-stealdf <- stealdf[ , !(names(stealdf) %in% c("N_BC", "N_BU", "N_RC", "N_RU", "N_THC", "N_THU", "date"))]
-colnames <- c("N_SC", "N_SU", "Month" )
-
-# Change column names of full_df
-colnames(stealdf) <- colnames
-view(stealdf)
-simple_reg <- lm(N_SC ~ no_months, data = stealdf)
+head(stealdf)
+# Regression line for theft and handling conviction
+simple_reg <- lm(N_THC ~ no_months, data = stealdf)
 summary(simple_reg)
+# Regression line for theft and handling unsuccessful
+simple_reg <- lm(N_THU ~ no_months, data = stealdf)
+summary(simple_reg)
+# Regression line for burglary convictions
+simple_reg <- lm(N_BC ~ no_months, data = stealdf)
+summary(simple_reg)
+# Regression line for burglary unsuccessful
+simple_reg <- lm(N_BU ~ no_months, data = stealdf)
+summary(simple_reg)
+# Regression line for robbery convictions
+simple_reg <- lm(N_RC ~ no_months, data = stealdf)
+summary(simple_reg)
+# Regression line for robbery unsuccessful
+simple_reg <- lm(N_RU ~ no_months, data = stealdf)
+summary(simple_reg)
+
+# Regression line for total theft and handling cases
+th_reg <- lm(total_theft_handling ~ no_months, data = stealdf)
+summary(th_reg)
+# Regression line for total burglary cases 
+b_reg <- lm(total_burglary ~ no_months, data = stealdf)
+summary(b_reg)
+# Regression line for total robbery cases
+r_reg <- lm(total_robbery ~ no_months, data = stealdf)
+summary(r_reg)
+
+
+####
+head(th.c_df)
+simple_reg <- lm(N_SC ~ no_months, data = th.c_df)
+summary(simple_reg)
+
+head(sc.stealdf)
+simple_reg <- lm(N_THC ~ no_months, data = sc.stealdf)
+summary(simple_reg)
+simple_reg <- lm(N_THU ~ no_months, data = sc.stealdf)
+summary(simple_reg)
+

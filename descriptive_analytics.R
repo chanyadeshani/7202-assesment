@@ -437,7 +437,3 @@ p3 <- ggplot(stats_pc, aes(Principal_crime, sd_values, group = 1)) +
   theme(axis.text.x=element_text(angle=90,vjust =1))
 
 ggplotly(p3)
-
-
-
-
