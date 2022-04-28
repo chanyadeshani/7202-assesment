@@ -34,7 +34,30 @@ ggplot(nationaldf, aes(N_BU ))+geom_boxplot()+
   ggtitle("Number of national burglary unsuccessfull")+
   xlab("Number of burglary unsuccessfull")
 
+is_outlier <- function(x) {
+  return(x < quantile(x, 0.25) - 1.5 * IQR(x) | x > quantile(x, 0.75) + 1.5 * IQR(x))
+}
+outlier_nthc <- is_outlier(nationaldf$N_THC)
+aggregate(data.frame(count = outlier_nthc), list(value = outlier_nthc), length)
+outlier_nthu <- is_outlier(nationaldf$N_THU)
+aggregate(data.frame(count = outlier_nthu), list(value = outlier_nthu), length)
+outlier_nbc <- is_outlier(nationaldf$N_BC)
+aggregate(data.frame(count = outlier_nbc), list(value = outlier_nbc), length)
+outlier_nbu <- is_outlier(nationaldf$N_BU)
+aggregate(data.frame(count = outlier_nbu), list(value = outlier_nbu), length)
+outlier_nrc <- is_outlier(nationaldf$N_RC)
+aggregate(data.frame(count = outlier_nrc), list(value = outlier_nrc), length)
+outlier_nru <- is_outlier(nationaldf$N_RU)
+aggregate(data.frame(count = outlier_nru), list(value = outlier_nru), length)
+
 # Calculate coorelation
+cor(nationaldf$N_THC,as.numeric(nationaldf$date), method = c("pearson"))
+cor(nationaldf$N_THU,as.numeric(nationaldf$date), method = c("pearson"))
+cor(nationaldf$N_RC,as.numeric(nationaldf$date), method = c("pearson"))
+cor(nationaldf$N_RU ,as.numeric(nationaldf$date), method = c("pearson"))
+cor(nationaldf$N_BC ,as.numeric(nationaldf$date), method = c("pearson"))
+cor(nationaldf$N_BU,as.numeric(nationaldf$date), method = c("pearson"))
+
 cor(nationaldf$N_THC,as.numeric(nationaldf$date), method = c("spearman"))
 cor(nationaldf$N_THU,as.numeric(nationaldf$date), method = c("spearman"))
 cor(nationaldf$N_RC,as.numeric(nationaldf$date), method = c("spearman"))
@@ -60,6 +83,15 @@ sc.stealdf <- stealdf
 stealdf$total_theft_handling <- stealdf$N_THC + stealdf$N_THU
 stealdf$total_burglary <- stealdf$N_BC + stealdf$N_BU
 stealdf$total_robbery <- stealdf$N_RC + stealdf$N_RU
+Total_national_robbery_cases = stealdf$total_robbery
+Total_national_theft_handling_cases = stealdf$total_theft_handling
+Total_national_burglary_cases = stealdf$total_burglary
+
+hist(Total_national_theft_handling_cases)
+hist(Total_national_burglary_cases)
+hist(Total_national_robbery_cases)
+summary(stealdf)
+sd(stealdf$total_theft_handling)
 
 # Scale the column except date
 sc.stealdf[c(2:7)] <- scale(sc.stealdf[c(2:7)])
@@ -98,5 +130,5 @@ box()
 # add a legend
 legend("topright",fill=colours,legend=c('Scaled Stealing Convictions','Scaled Stealing Unsuccessful'))
 
+# Scater plot matrix Figure 4.3
 splom(~stealdf[c(1,9,10,11)], groups=NULL, data=stealdf,axis.line.tck = 0, axis.text.alpha = 0) 
-
