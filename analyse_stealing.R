@@ -5,8 +5,8 @@ library(corrplot)
 library(lattice)
 
 # Select subset of national values with 7 columns
-stealdf = nationaldf[, c('N_BC', 'N_BU', 'N_RC','N_RU','N_THC','N_THU','date')]
-
+stealdf = nationaldf[, c('N_BC', 'N_BU', 'N_RC','N_RU','N_THC','N_THU','date','court')]
+head(nationaldf)
 hist(stealdf$"N_BU")
 par(mfrow=c(3,2))
 # Check for outliers
