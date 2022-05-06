@@ -5,6 +5,8 @@ library(rattle)
 library(tree)
 library(class)
 library(caret)
+
+
 # Create a subset of columns related to motoring offence
 motor_offence_df = timeseries_df[, c(45,46,47,50,51)]
 
@@ -34,6 +36,11 @@ ggplot(motor_offence_df, aes(x=month, y=court, shape=motor_cat, color=motor_cat,
   ggtitle("Motoring court case succcess rate")
 
 motor_offence_df$court <- as.numeric(as.factor(motor_offence_df$court))
+motor_offence_df %>%
+  ggplot(aes(x=motor_cat, y=total_motoring, fill = motor_cat)) +
+  geom_boxplot() +theme_bw()+
+  ggtitle("Box Plot")
+
 
 ## 80% of the sample size
 smp_size <- floor(0.8 * nrow(motor_offence_df))
@@ -45,7 +52,7 @@ train_ind <- sample(seq_len(nrow(motor_offence_df)), size = smp_size)
 train <- motor_offence_df[train_ind, ]
 test <- motor_offence_df[-train_ind, ]
 
-tree1 <- rpart(formula = motor_cat ~ court + month+total_motoring, data = motor_offence_df, method = "class", 
+tree1 <- rpart(formula = motor_cat ~ court + month+total_motoring, data = train, method = "class", 
               parms = list(split = "information"))
 tree1
 # Plot decision tree
@@ -59,7 +66,7 @@ cofused_mat1
 accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}
 accuracy(cofused_mat1)
 
-tree2 <- rpart(formula = motor_cat ~ court + month+total_motoring, data = motor_offence_df, method = "class", 
+tree2 <- rpart(formula = motor_cat ~ court + month+total_motoring, data = train, method = "class", 
               parms = list(split = "information"), control = rpart.control(minsplit = 90))
 
 tree2
@@ -73,17 +80,6 @@ cofused_mat2 <- table(test$motor_cat, predict_unseen2)
 cofused_mat2
 
 accuracy(cofused_mat2)
+plotcp(tree2)
 
 
-nor <-function(x) { (x -min(x))/(max(x)-min(x)) }
-##Run nomalization on first columns of dataset because they are the predictors
-motor_offence_df_norm <- as.data.frame(lapply(motor_offence_df[,c(6,7,9)], nor))
-train <- motor_offence_df_norm[train_ind,]
-##extract testing set
-test <- motor_offence_df_norm[-train_ind,] 
-target_category <- motor_offence_df_norm[train_ind,3]
-##extract 5th column if test dataset to measure the accuracy
-test_category <- motor_offence_df_norm[-train_ind,3]
-pr <- knn(train,test,cl=target_category,k=2)
-tab <- table(pr,test_category)
-accuracy(tab)

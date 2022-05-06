@@ -136,11 +136,6 @@ m_total_cases + (res.km4$centers[3,1]*sd_total_cases)
 # Total cases for cluster center four
 m_total_cases + (res.km4$centers[4,1]*sd_total_cases)
 view(drug_cluster_df)
-#-----------------
-drug_cluster_df %>%
-  as_tibble() %>%
-  mutate(cluster = res.km4$cluster,
-         court = drug_cluster_df$court_num)%>%
-  ggplot(aes( month,total_cases, color = factor(cluster), label = court)) +
-  geom_text()
-cor(drug_df_num$court_num,)
+
+
+
